@@ -30,6 +30,11 @@ export default function Navbar() {
     });
   };
 
+  const handleAuthClick = (action) => {
+    setMobileOpen(false);
+    trackEvent('auth_cta_click', { action });
+  };
+
   const links = [
     { label: 'Features', href: '#features' },
     { label: 'How It Works', href: '#how-it-works' },
@@ -53,6 +58,12 @@ export default function Navbar() {
   const MoonIcon = () => (
     <svg aria-hidden="true" focusable="false" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+    </svg>
+  );
+
+  const SparkleIcon = () => (
+    <svg aria-hidden="true" focusable="false" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M12 3l1.9 5.6L19.5 10.5l-5.6 1.9L12 18l-1.9-5.6L4.5 10.5l5.6-1.9z"/>
     </svg>
   );
 
@@ -87,9 +98,47 @@ export default function Navbar() {
               </a>
             </li>
           ))}
+
+          {/* Auth CTAs — visible inside mobile overlay too */}
+          <li className="navbar__auth navbar__auth--mobile">
+            <a
+              href="/login"
+              className="navbar__btn navbar__btn--ghost"
+              onClick={() => handleAuthClick('login')}
+            >
+              Log in
+            </a>
+            <a
+              href="/signup"
+              className="navbar__btn navbar__btn--primary"
+              onClick={() => handleAuthClick('signup')}
+            >
+              <SparkleIcon />
+              <span>Get Started</span>
+            </a>
+          </li>
         </ul>
 
         <div className="navbar__actions">
+          {/* Auth CTAs — desktop */}
+          <div className="navbar__auth navbar__auth--desktop">
+            <a
+              href="/login"
+              className="navbar__btn navbar__btn--ghost"
+              onClick={() => handleAuthClick('login')}
+            >
+              Log in
+            </a>
+            <a
+              href="/signup"
+              className="navbar__btn navbar__btn--primary"
+              onClick={() => handleAuthClick('signup')}
+            >
+              <SparkleIcon />
+              <span>Get Started</span>
+            </a>
+          </div>
+
           <button
             className="navbar__theme-toggle"
             onClick={toggleTheme}
