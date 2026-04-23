@@ -40,6 +40,8 @@
   top: -250px;
   right: -150px;
   animation: float 8s ease-in-out infinite;
+  /* Parallax: moves slowest (background depth) — composes with `transform` animation */
+  translate: 0 calc(var(--parallax-y, 0px) * 0.15);
 }
 
 .hero__orb--2 {
@@ -49,6 +51,7 @@
   bottom: -150px;
   left: -200px;
   animation: float 10s ease-in-out infinite 2s;
+  translate: 0 calc(var(--parallax-y, 0px) * 0.25);
 }
 
 .hero__orb--3 {
@@ -58,6 +61,7 @@
   top: 40%;
   left: 50%;
   animation: float 12s ease-in-out infinite 4s;
+  translate: 0 calc(var(--parallax-y, 0px) * 0.35);
 }
 
 .hero__grid {
@@ -68,6 +72,16 @@
     linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
   background-size: 60px 60px;
   mask-image: radial-gradient(ellipse at center, black 20%, transparent 70%);
+  /* Foreground layer moves slightly faster than orbs for depth */
+  translate: 0 calc(var(--parallax-y, 0px) * 0.4);
+  will-change: translate;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__orb--1,
+  .hero__orb--2,
+  .hero__orb--3,
+  .hero__grid { translate: 0 0 !important; }
 }
 
 /* ── Layout ── */

@@ -71,3 +71,16 @@ Any future form must be validated on **both** client and server.
 
 - Client (UX): use `validators` and `validateForm()` from `src/lib/security.js`, or install [`zod`](https://zod.dev) for schema-based validation.
 - Server (authoritative): re-run the same schema on every request. Reject on any failure — never trust client validation alone. Apply length limits, type checks, and `encodeURIComponent()` before forwarding to any third-party URL.
+
+## ✨ UX Enhancements
+
+| Feature | File(s) | Notes |
+|---|---|---|
+| Scroll Progress Indicator | `src/components/ScrollProgress.{jsx,css}` | Thin gradient bar fixed at `top: 0`, width = scroll %, rAF-throttled. |
+| Sticky Section Highlight | `src/hooks/useActiveSection.js`, `Navbar.{jsx,css}` | `IntersectionObserver` picks the most-visible `<section>` and highlights its nav link with `aria-current="true"` + animated gradient underline. |
+| Smooth Scroll | `Navbar.jsx → handleNavClick` | JS upgrade over native anchor; respects `prefers-reduced-motion` and offsets for the sticky navbar height. |
+| Back-to-Top Button | `src/components/BackToTop.{jsx,css}` | Appears after `window.scrollY > 300`, smooth-scrolls to top, fires `back_to_top_click` analytics event. |
+| Skeleton Loaders | `src/components/Skeleton.{jsx,css}` | Used as `Suspense` fallback for lazy-loaded sections — reserves space → no CLS. Variants: `section`, `card`, `text`. |
+| Print Stylesheet | `src/styles/print.css` | Imported in `main.jsx`. Hides chrome (navbar, banners, FAB), forces white bg + black text, expands link URLs after `<a>` for PDF readers, A4 margins. Test via browser → Print → Save as PDF. |
+
+All new UI respects `prefers-reduced-motion` and is hidden when printing.

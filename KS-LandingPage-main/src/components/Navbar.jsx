@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import './Navbar.css';
 import { trackEvent } from '../lib/analytics';
+import useActiveSection from '../hooks/useActiveSection';
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -36,10 +37,28 @@ export default function Navbar() {
   };
 
   const links = [
-    { label: 'Features', href: '#features' },
-    { label: 'How It Works', href: '#how-it-works' },
-    { label: 'Testimonials', href: '#testimonials' },
+    { label: 'Features', href: '#features', id: 'features' },
+    { label: 'How It Works', href: '#how-it-works', id: 'how-it-works' },
+    { label: 'Testimonials', href: '#testimonials', id: 'testimonials' },
   ];
+
+  // Highlight current section in navbar as the user scrolls
+  const activeId = useActiveSection(links.map(l => l.id));
+
+  // Smooth scroll on anchor click (anchor href fallback still works without JS)
+  const handleNavClick = (e, link) => {
+    setMobileOpen(false);
+    trackEvent('nav_link_click', { label: link.label, href: link.href });
+
+    const el = document.getElementById(link.id);
+    if (!el) return;
+    e.preventDefault();
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const navOffset = document.getElementById('navbar')?.offsetHeight || 0;
+    const top = el.getBoundingClientRect().top + window.scrollY - navOffset - 8;
+    window.scrollTo({ top, behavior: reduce ? 'auto' : 'smooth' });
+    history.replaceState(null, '', link.href);
+  };
 
   const SunIcon = () => (
     <svg aria-hidden="true" focusable="false" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -84,20 +103,21 @@ export default function Navbar() {
         </a>
 
         <ul className={`navbar__links ${mobileOpen ? 'navbar__links--open' : ''}`} id="navbar-links">
-          {links.map((l) => (
-            <li key={l.href}>
-              <a
-                href={l.href}
-                className="navbar__link"
-                onClick={() => {
-                  setMobileOpen(false);
-                  trackEvent('nav_link_click', { label: l.label, href: l.href });
-                }}
-              >
-                {l.label}
-              </a>
-            </li>
-          ))}
+          {links.map((l) => {
+            const isActive = activeId === l.id;
+            return (
+              <li key={l.href}>
+                <a
+                  href={l.href}
+                  className={`navbar__link ${isActive ? 'navbar__link--active' : ''}`}
+                  aria-current={isActive ? 'true' : undefined}
+                  onClick={(e) => handleNavClick(e, l)}
+                >
+                  {l.label}
+                </a>
+              </li>
+            );
+          })}
 
           {/* Auth CTAs — visible inside mobile overlay too */}
           <li className="navbar__auth navbar__auth--mobile">

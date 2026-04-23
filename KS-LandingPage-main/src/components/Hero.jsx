@@ -6,6 +6,9 @@ export default function Hero() {
 
   useEffect(() => {
     const hero = heroRef.current;
+    if (!hero) return;
+
+    // ── Mouse-tracked spotlight (existing behaviour) ──
     const handleMouseMove = (e) => {
       const { left, top, width, height } = hero.getBoundingClientRect();
       const x = ((e.clientX - left) / width) * 100;
@@ -14,7 +17,31 @@ export default function Hero() {
       hero.style.setProperty('--mouse-y', `${y}%`);
     };
     hero.addEventListener('mousemove', handleMouseMove);
-    return () => hero.removeEventListener('mousemove', handleMouseMove);
+
+    // ── Scroll parallax (transform-only → GPU-friendly, no layout shift) ──
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let frame = 0;
+    const updateParallax = () => {
+      const y = window.scrollY;
+      // Cap effect so it stops once hero leaves the viewport
+      const capped = Math.max(0, Math.min(y, window.innerHeight));
+      hero.style.setProperty('--parallax-y', `${capped}px`);
+      frame = 0;
+    };
+    const onScroll = () => {
+      if (frame || reduce) return;
+      frame = requestAnimationFrame(updateParallax);
+    };
+    if (!reduce) {
+      updateParallax();
+      window.addEventListener('scroll', onScroll, { passive: true });
+    }
+
+    return () => {
+      hero.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('scroll', onScroll);
+      if (frame) cancelAnimationFrame(frame);
+    };
   }, []);
 
   return (

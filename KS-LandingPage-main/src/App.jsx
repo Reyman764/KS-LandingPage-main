@@ -2,51 +2,54 @@ import { lazy, Suspense } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import ConsentBanner from './components/ConsentBanner';
+import ScrollProgress from './components/ScrollProgress';
+import BackToTop from './components/BackToTop';
+import Skeleton from './components/Skeleton';
 
 // ─── Below-fold components lazy-loaded ───────────────────────────────────────
-// These are only parsed + executed when the browser is idle / user scrolls,
-// reducing the initial JS bundle parsed on first load (improves TTI & FID).
 const LogoBar      = lazy(() => import('./components/LogoBar'));
 const Features     = lazy(() => import('./components/Features'));
 const HowItWorks   = lazy(() => import('./components/HowItWorks'));
 const Testimonials = lazy(() => import('./components/Testimonials'));
 const Footer       = lazy(() => import('./components/Footer'));
 
-// Minimal fallback — invisible placeholder that reserves no space,
-// so Suspense boundaries don't cause layout shift (CLS = 0).
-const Noop = () => null;
-
 export default function App() {
   return (
     <>
+      {/* Thin scroll progress bar at the very top of the viewport */}
+      <ScrollProgress />
+
       {/* Navbar and Hero are eager — they are the LCP region */}
       <Navbar />
       <main>
         <Hero />
 
-        {/* Everything below the fold is lazy */}
-        <Suspense fallback={<Noop />}>
+        {/* Skeleton fallbacks reserve vertical space → prevents CLS */}
+        <Suspense fallback={<Skeleton />}>
           <LogoBar />
         </Suspense>
 
-        <Suspense fallback={<Noop />}>
+        <Suspense fallback={<Skeleton />}>
           <Features />
         </Suspense>
 
-        <Suspense fallback={<Noop />}>
+        <Suspense fallback={<Skeleton />}>
           <HowItWorks />
         </Suspense>
 
-        <Suspense fallback={<Noop />}>
+        <Suspense fallback={<Skeleton />}>
           <Testimonials />
         </Suspense>
       </main>
 
-      <Suspense fallback={<Noop />}>
+      <Suspense fallback={<Skeleton />}>
         <Footer />
       </Suspense>
 
       <ConsentBanner />
+
+      {/* Floating back-to-top button — appears after 300px scroll */}
+      <BackToTop />
     </>
   );
 }

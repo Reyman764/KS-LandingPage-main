@@ -1,0 +1,48 @@
+/* Print stylesheet — optimizes the page for paper / PDF export. */
+@media print {
+  :root, [data-theme="dark"], [data-theme="light"] {
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+  html, body {
+    background: #ffffff !important;
+    color: #000000 !important;
+    font-size: 11pt;
+    line-height: 1.45;
+  }
+  @page { margin: 18mm 15mm; size: A4; }
+
+  .navbar, .scroll-progress, .back-to-top, .consent-banner,
+  .navbar__hamburger, .navbar__theme-toggle, .navbar__auth,
+  .cta, .cta-section, .pricing__cta,
+  video, iframe, [role="dialog"] {
+    display: none !important;
+  }
+
+  section, .hero, .features, .how-it-works, .testimonials,
+  .pricing, .footer, .logo-bar {
+    background: #ffffff !important;
+    box-shadow: none !important;
+    color: #000000 !important;
+    page-break-inside: avoid;
+    break-inside: avoid;
+    padding: 12pt 0 !important;
+    margin: 0 !important;
+  }
+
+  h1, h2, h3, h4 {
+    color: #000000 !important;
+    page-break-after: avoid;
+    break-after: avoid;
+  }
+  a, a:visited { color: #000000 !important; text-decoration: underline; }
+  a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: 9pt; color: #444 !important; word-break: break-all;
+  }
+  a[href^="#"]::after, a[href^="mailto:"]::after, a[href^="tel:"]::after { content: ""; }
+
+  img { max-width: 100% !important; height: auto !important;
+        page-break-inside: avoid; break-inside: avoid; }
+  li { page-break-inside: avoid; break-inside: avoid; }
+}

@@ -50,6 +50,39 @@
   border: 1px solid var(--border-subtle);
   color: var(--feat-color, var(--primary-500));
   flex-shrink: 0;
+  position: relative;
+  overflow: hidden;
+  transition:
+    transform 360ms cubic-bezier(0.34, 1.56, 0.64, 1),
+    background 240ms ease,
+    box-shadow 320ms ease,
+    border-color 240ms ease;
+}
+
+/* Soft glow ring that scales in on hover */
+.features__icon::after {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  background: radial-gradient(
+    circle at center,
+    color-mix(in srgb, var(--feat-color, var(--primary-500)) 45%, transparent),
+    transparent 70%
+  );
+  opacity: 0;
+  transform: scale(0.7);
+  transition: opacity 320ms ease, transform 320ms ease;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Inner SVG sits above the glow and gets its own micro-animation */
+.features__icon > svg {
+  position: relative;
+  z-index: 1;
+  transition: transform 420ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  transform-origin: center;
 }
 
 [data-theme="light"] .features__icon {
@@ -59,8 +92,59 @@
 
 .features__card:hover .features__icon {
   background: var(--overlay-md);
-  transform: scale(1.08);
-  box-shadow: 0 0 24px rgba(227,27,27,0.1);
+  transform: scale(1.08) translateY(-2px);
+  box-shadow:
+    0 0 24px color-mix(in srgb, var(--feat-color, var(--primary-500)) 35%, transparent),
+    0 6px 18px rgba(0, 0, 0, 0.18);
+  border-color: color-mix(in srgb, var(--feat-color, var(--primary-500)) 50%, transparent);
+}
+
+.features__card:hover .features__icon::after {
+  opacity: 0.85;
+  transform: scale(1);
+}
+
+/* Icon itself rotates + scales — feels alive on hover */
+.features__card:hover .features__icon > svg {
+  transform: rotate(-8deg) scale(1.18);
+}
+
+/* SVG morph: animate the stroke "draw" so paths re-trace on hover */
+.features__icon > svg path,
+.features__icon > svg line,
+.features__icon > svg polyline,
+.features__icon > svg rect,
+.features__icon > svg circle {
+  stroke-dasharray: 120;
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 700ms ease, stroke-width 240ms ease;
+}
+.features__card:hover .features__icon > svg path,
+.features__card:hover .features__icon > svg line,
+.features__card:hover .features__icon > svg polyline,
+.features__card:hover .features__icon > svg rect,
+.features__card:hover .features__icon > svg circle {
+  /* Quick morph: dash retracts then snaps back via the transition */
+  stroke-dashoffset: 120;
+  stroke-width: 1.8;
+  animation: feat-icon-redraw 700ms ease forwards;
+}
+
+@keyframes feat-icon-redraw {
+  0%   { stroke-dashoffset: 120; }
+  100% { stroke-dashoffset: 0;   }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .features__icon,
+  .features__icon > svg,
+  .features__icon::after,
+  .features__icon > svg * {
+    transition: none !important;
+    animation: none !important;
+  }
+  .features__card:hover .features__icon { transform: none; }
+  .features__card:hover .features__icon > svg { transform: none; }
 }
 
 .features__card-title {
