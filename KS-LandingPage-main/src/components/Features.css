@@ -1,6 +1,7 @@
 .features {
   padding: var(--section-padding);
   position: relative;
+  background: var(--bg-base);
 }
 
 .features__header {
@@ -58,6 +59,11 @@
   border: 1px solid var(--border-subtle);
   color: var(--feat-color, var(--primary-500));
   transition: all var(--transition-base);
+}
+
+[data-theme="light"] .features__icon {
+  background: color-mix(in srgb, var(--feat-color, var(--primary-500)) 10%, transparent);
+  border-color: color-mix(in srgb, var(--feat-color, var(--primary-500)) 20%, transparent);
 }
 
 .features__card:hover .features__icon {

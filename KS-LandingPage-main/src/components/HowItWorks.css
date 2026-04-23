@@ -1,7 +1,7 @@
 .how-it-works {
   padding: var(--section-padding);
   position: relative;
-  background: linear-gradient(180deg, transparent, rgba(227, 27, 27, 0.02), transparent);
+  background: var(--section-stripe);
 }
 
 .how-it-works__header {

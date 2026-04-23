@@ -1,7 +1,7 @@
 .testimonials {
   padding: var(--section-padding);
   position: relative;
-  background: linear-gradient(180deg, transparent, rgba(227, 27, 27, 0.015), transparent);
+  background: var(--section-stripe);
 }
 
 .testimonials__header {

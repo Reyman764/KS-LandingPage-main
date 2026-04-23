@@ -1,6 +1,7 @@
 .logo-bar {
   padding: 60px 0 80px;
   border-bottom: 1px solid var(--border-subtle);
+  background: var(--section-stripe);
 }
 
 .logo-bar__label {

@@ -42,6 +42,7 @@
   /* ── Semantic Theme Tokens (dark default) ── */
   --bg-base: #0a0a0a;
   --bg-surface: #171717;
+  --bg-alt: #111111;
   --bg-mockup: rgba(23, 23, 23, 0.9);
   --text-primary: #fafafa;
   --text-secondary: #a3a3a3;
@@ -56,6 +57,9 @@
   --grid-line: rgba(255, 255, 255, 0.02);
   --navbar-scrolled-bg: rgba(10, 10, 10, 0.85);
   --mobile-menu-bg: rgba(10, 10, 10, 0.98);
+  --shadow-card: 0 4px 20px rgba(0,0,0,0.4);
+  --orb-opacity: 0.35;
+  --section-stripe: #111111;
 
   /* Gradients */
   --gradient-primary: linear-gradient(135deg, #e31b1b 0%, #ff6363 50%, #fbbf24 100%);
@@ -89,28 +93,33 @@
 
 /* ── Light Mode Overrides ── */
 [data-theme="light"] {
-  --bg-base: #ffffff;
-  --bg-surface: #f5f5f5;
-  --bg-mockup: rgba(240, 240, 240, 0.97);
-  --text-primary: #111111;
-  --text-secondary: #555555;
-  --text-muted: #888888;
-  --text-dim: #666666;
-  --border-subtle: rgba(0, 0, 0, 0.07);
-  --border-default: rgba(0, 0, 0, 0.13);
-  --overlay-xs: rgba(0, 0, 0, 0.02);
-  --overlay-sm: rgba(0, 0, 0, 0.04);
-  --overlay-md: rgba(0, 0, 0, 0.06);
-  --overlay-lg: rgba(0, 0, 0, 0.1);
-  --grid-line: rgba(0, 0, 0, 0.04);
-  --navbar-scrolled-bg: rgba(255, 255, 255, 0.9);
-  --mobile-menu-bg: rgba(255, 255, 255, 0.98);
-  --gradient-card: linear-gradient(135deg, rgba(0,0,0,0.025) 0%, rgba(0,0,0,0.01) 100%);
-  --gradient-dark: linear-gradient(180deg, #ffffff 0%, #f5f5f5 100%);
-  --shadow-sm: 0 1px 2px rgba(0,0,0,0.07);
-  --shadow-md: 0 4px 12px rgba(0,0,0,0.1);
-  --shadow-lg: 0 8px 30px rgba(0,0,0,0.13);
-  --shadow-glow: 0 0 40px rgba(227,27,27,0.1);
+  --bg-base:     #f8f8f9;
+  --bg-surface:  #ffffff;
+  --bg-alt:      #f1f2f4;        /* alternate section stripe */
+  --bg-mockup:   rgba(255, 255, 255, 0.98);
+  --text-primary:   #0f0f10;
+  --text-secondary: #4b4c52;
+  --text-muted:     #7a7b84;
+  --text-dim:       #9a9ba4;
+  --border-subtle:  rgba(0, 0, 0, 0.08);
+  --border-default: rgba(0, 0, 0, 0.15);
+  --overlay-xs: rgba(0, 0, 0, 0.025);
+  --overlay-sm: rgba(0, 0, 0, 0.05);
+  --overlay-md: rgba(0, 0, 0, 0.08);
+  --overlay-lg: rgba(0, 0, 0, 0.13);
+  --grid-line:  rgba(0, 0, 0, 0.055);
+  --navbar-scrolled-bg: rgba(248, 248, 249, 0.92);
+  --mobile-menu-bg:     rgba(255, 255, 255, 0.98);
+  /* Cards: solid white surface with soft shadow instead of glassy gradient */
+  --gradient-card: linear-gradient(135deg, #ffffff 0%, #fafafa 100%);
+  --gradient-dark: linear-gradient(180deg, #f8f8f9 0%, #f1f2f4 100%);
+  --shadow-sm:  0 1px 3px rgba(0,0,0,0.07), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-md:  0 4px 16px rgba(0,0,0,0.09), 0 2px 6px rgba(0,0,0,0.05);
+  --shadow-lg:  0 10px 36px rgba(0,0,0,0.11), 0 4px 12px rgba(0,0,0,0.06);
+  --shadow-card: 0 2px 12px rgba(0,0,0,0.07), 0 1px 3px rgba(0,0,0,0.04);
+  --shadow-glow: 0 0 40px rgba(227,27,27,0.12);
+  --orb-opacity: 0.08;
+  --section-stripe: #f1f2f4;
 }
 
 html {
@@ -233,6 +242,18 @@ button {
   transform: translateY(-2px);
 }
 
+[data-theme="light"] .btn-secondary {
+  background: #ffffff;
+  border-color: rgba(0,0,0,0.18);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+}
+
+[data-theme="light"] .btn-secondary:hover {
+  background: #f5f5f5;
+  border-color: rgba(0,0,0,0.25);
+  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+}
+
 .btn-outline {
   background: transparent;
   color: var(--primary-400);
@@ -256,6 +277,37 @@ button {
 .glass-card:hover {
   border-color: var(--border-default);
   box-shadow: var(--shadow-lg);
+}
+
+/* Light mode: solid white card with shadow instead of glassy dark overlay */
+[data-theme="light"] .glass-card {
+  background: #ffffff;
+  border-color: rgba(0,0,0,0.08);
+  box-shadow: var(--shadow-card);
+}
+
+[data-theme="light"] .glass-card:hover {
+  border-color: rgba(0,0,0,0.14);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+/* ===== SMOOTH THEME TRANSITIONS ===== */
+*,
+*::before,
+*::after {
+  transition-property: background-color, border-color, color, box-shadow;
+  transition-duration: 250ms;
+  transition-timing-function: ease;
+}
+
+/* Don't apply to animated elements */
+.animate-in,
+.hero__orb,
+.logo-bar__scroll,
+.hero__title-accent,
+.navbar__hamburger span {
+  transition: unset;
 }
 
 /* ===== ANIMATIONS ===== */
