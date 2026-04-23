@@ -376,3 +376,19 @@ button {
 ::-webkit-scrollbar-thumb:hover {
   background: var(--text-secondary);
 }
+
+/* ===== GLOBAL RESPONSIVE ===== */
+@media (max-width: 1024px) {
+  :root { --section-padding: 96px 0; }
+}
+
+@media (max-width: 768px) {
+  :root { --section-padding: 72px 0; }
+  .container { padding: 0 20px; }
+  .section-subtitle { max-width: 100%; }
+}
+
+@media (max-width: 480px) {
+  :root { --section-padding: 56px 0; }
+  .container { padding: 0 16px; }
+}

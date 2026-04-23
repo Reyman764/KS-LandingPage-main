@@ -6,16 +6,11 @@
 
 .features__header {
   text-align: center;
-  margin-bottom: 64px;
+  margin-bottom: 56px;
 }
 
-.features__header .section-label {
-  justify-content: center;
-}
-
-.features__header .section-subtitle {
-  margin: 0 auto;
-}
+.features__header .section-label  { justify-content: center; }
+.features__header .section-subtitle { margin: 0 auto; }
 
 .features__grid {
   display: grid;
@@ -35,18 +30,14 @@
 .features__card::before {
   content: '';
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
+  top: 0; left: 0; right: 0;
   height: 2px;
   background: linear-gradient(90deg, transparent, var(--feat-color, var(--primary-500)), transparent);
   opacity: 0;
   transition: opacity var(--transition-base);
 }
 
-.features__card:hover::before {
-  opacity: 1;
-}
+.features__card:hover::before { opacity: 1; }
 
 .features__icon {
   width: 52px;
@@ -58,7 +49,7 @@
   background: var(--overlay-sm);
   border: 1px solid var(--border-subtle);
   color: var(--feat-color, var(--primary-500));
-  transition: all var(--transition-base);
+  flex-shrink: 0;
 }
 
 [data-theme="light"] .features__icon {
@@ -69,12 +60,12 @@
 .features__card:hover .features__icon {
   background: var(--overlay-md);
   transform: scale(1.08);
-  box-shadow: 0 0 24px rgba(227, 27, 27, 0.1);
+  box-shadow: 0 0 24px rgba(227,27,27,0.1);
 }
 
 .features__card-title {
   font-family: var(--font-heading);
-  font-size: 1.2rem;
+  font-size: 1.125rem;
   font-weight: 600;
   color: var(--text-primary);
 }
@@ -85,14 +76,36 @@
   line-height: 1.7;
 }
 
+/* ── Tablet ── */
 @media (max-width: 900px) {
   .features__grid {
     grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
   }
 }
 
+/* ── Mobile ── */
 @media (max-width: 600px) {
+  .features__header { margin-bottom: 40px; }
+
   .features__grid {
     grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .features__card {
+    padding: 24px 20px;
+    flex-direction: row;       /* icon left, text right on mobile */
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .features__card::before { display: none; } /* top-border accent not visible in row layout */
+
+  .features__icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    flex-shrink: 0;
   }
 }
