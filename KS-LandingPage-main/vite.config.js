@@ -75,13 +75,32 @@ export default defineConfig({
     target: ['es2020', 'chrome90', 'firefox88', 'safari14', 'edge90'],
   },
 
-  // Preview server mirrors a real CDN response
+  // Preview server mirrors a real CDN response.
+  // Keep these in sync with public/_headers and vercel.json.
   preview: {
     headers: {
       'Cache-Control': 'public, max-age=31536000, immutable', // 1 year for hashed assets
+      'Content-Security-Policy': [
+        "default-src 'self'",
+        "base-uri 'self'",
+        "form-action 'self'",
+        "frame-ancestors 'none'",
+        "object-src 'none'",
+        "img-src 'self' data: https://www.google-analytics.com https://*.hotjar.com",
+        "font-src 'self' data:",
+        "style-src 'self' 'unsafe-inline'",
+        "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com https://static.hotjar.com https://script.hotjar.com",
+        "connect-src 'self' https://www.google-analytics.com https://*.analytics.google.com https://*.hotjar.com https://*.hotjar.io wss://*.hotjar.com",
+        "frame-src https://vars.hotjar.com",
+        'upgrade-insecure-requests',
+      ].join('; '),
+      'Strict-Transport-Security': 'max-age=63072000; includeSubDomains; preload',
       'X-Content-Type-Options': 'nosniff',
       'X-Frame-Options': 'DENY',
       'Referrer-Policy': 'strict-origin-when-cross-origin',
+      'Permissions-Policy': 'geolocation=(), microphone=(), camera=(), payment=(), usb=()',
+      'Cross-Origin-Opener-Policy': 'same-origin',
+      'Cross-Origin-Resource-Policy': 'same-origin',
     },
   },
 })
