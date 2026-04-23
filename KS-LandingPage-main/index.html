@@ -2,15 +2,266 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/png" href="/logo.png" />
+
+    <!-- ════════════════════════════════════════
+         VIEWPORT & THEME
+    ════════════════════════════════════════ -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#e31b1b" />
+    <meta name="color-scheme" content="dark light" />
+
+    <!-- ════════════════════════════════════════
+         FAVICON SUITE
+    ════════════════════════════════════════ -->
+    <link rel="icon"             type="image/png"      href="/logo.png" />
+    <link rel="apple-touch-icon"                       href="/logo.png" />
+    <link rel="shortcut icon"    type="image/png"      href="/logo.png" />
+
+    <!-- ════════════════════════════════════════
+         PRIMARY META
+    ════════════════════════════════════════ -->
     <title>KaryaSync — Smart Task Management for Modern Teams</title>
-    <meta name="description" content="KaryaSync is a powerful task management system that helps teams collaborate, track progress, and deliver projects on time. Streamline your workflow today." />
-    <meta name="keywords" content="task management, project management, team collaboration, KaryaSync, productivity" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <meta name="description"
+          content="KaryaSync is the intelligent task management platform that keeps your team aligned, focused, and delivering results — all in one beautifully simple workspace. Free forever for small teams." />
+
+    <meta name="keywords"
+          content="task management, project management, team collaboration, Kanban board, workflow automation, agile tools, KaryaSync, productivity software, sprint planning, Gantt chart" />
+
+    <meta name="author"       content="KaryaSync" />
+    <meta name="robots"       content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta name="googlebot"    content="index, follow" />
+
+    <!-- ════════════════════════════════════════
+         CANONICAL URL
+    ════════════════════════════════════════ -->
+    <link rel="canonical" href="https://karyasync.com/" />
+
+    <!-- ════════════════════════════════════════
+         OPEN GRAPH — Social Sharing
+    ════════════════════════════════════════ -->
+    <meta property="og:type"              content="website" />
+    <meta property="og:site_name"         content="KaryaSync" />
+    <meta property="og:url"               content="https://karyasync.com/" />
+    <meta property="og:title"             content="KaryaSync — Smart Task Management for Modern Teams" />
+    <meta property="og:description"
+          content="The intelligent task management platform that keeps your team aligned, focused, and delivering results. Free forever for small teams." />
+    <meta property="og:image"             content="https://karyasync.com/og-image.png" />
+    <meta property="og:image:secure_url"  content="https://karyasync.com/og-image.png" />
+    <meta property="og:image:type"        content="image/png" />
+    <meta property="og:image:width"       content="1200" />
+    <meta property="og:image:height"      content="630" />
+    <meta property="og:image:alt"         content="KaryaSync dashboard — Smart Task Management for Modern Teams" />
+    <meta property="og:locale"            content="en_US" />
+
+    <!-- ════════════════════════════════════════
+         TWITTER / X CARD
+    ════════════════════════════════════════ -->
+    <meta name="twitter:card"        content="summary_large_image" />
+    <meta name="twitter:site"        content="@karyasync" />
+    <meta name="twitter:creator"     content="@karyasync" />
+    <meta name="twitter:url"         content="https://karyasync.com/" />
+    <meta name="twitter:title"       content="KaryaSync — Smart Task Management for Modern Teams" />
+    <meta name="twitter:description"
+          content="The intelligent task management platform that keeps your team aligned, focused, and delivering results. Free forever for small teams." />
+    <meta name="twitter:image"       content="https://karyasync.com/og-image.png" />
+    <meta name="twitter:image:alt"   content="KaryaSync dashboard — Smart Task Management for Modern Teams" />
+
+    <!-- ════════════════════════════════════════
+         FONTS  (preconnect → preload → load)
+    ════════════════════════════════════════ -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preload"    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap" as="style" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" />
+
+    <!-- ════════════════════════════════════════
+         STRUCTURED DATA — JSON-LD Schema Graph
+    ════════════════════════════════════════ -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+
+        {
+          "@type": "Organization",
+          "@id": "https://karyasync.com/#organization",
+          "name": "KaryaSync",
+          "url": "https://karyasync.com",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://karyasync.com/logo.png",
+            "width": 512,
+            "height": 512
+          },
+          "sameAs": [
+            "https://twitter.com/karyasync",
+            "https://github.com/karyasync",
+            "https://linkedin.com/company/karyasync",
+            "https://discord.gg/karyasync"
+          ]
+        },
+
+        {
+          "@type": "WebSite",
+          "@id": "https://karyasync.com/#website",
+          "url": "https://karyasync.com",
+          "name": "KaryaSync",
+          "description": "Smart task management for modern teams",
+          "publisher": { "@id": "https://karyasync.com/#organization" },
+          "potentialAction": {
+            "@type": "SearchAction",
+            "target": {
+              "@type": "EntryPoint",
+              "urlTemplate": "https://karyasync.com/search?q={search_term_string}"
+            },
+            "query-input": "required name=search_term_string"
+          }
+        },
+
+        {
+          "@type": "WebPage",
+          "@id": "https://karyasync.com/#webpage",
+          "url": "https://karyasync.com",
+          "name": "KaryaSync — Smart Task Management for Modern Teams",
+          "description": "KaryaSync is the intelligent task management platform that keeps your team aligned, focused, and delivering results — all in one beautifully simple workspace.",
+          "isPartOf": { "@id": "https://karyasync.com/#website" },
+          "about": { "@id": "https://karyasync.com/#software" },
+          "primaryImageOfPage": {
+            "@type": "ImageObject",
+            "url": "https://karyasync.com/og-image.png",
+            "width": 1200,
+            "height": 630
+          },
+          "breadcrumb": {
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://karyasync.com/"
+              }
+            ]
+          }
+        },
+
+        {
+          "@type": "SoftwareApplication",
+          "@id": "https://karyasync.com/#software",
+          "name": "KaryaSync",
+          "alternateName": "KaryaSync Task Manager",
+          "applicationCategory": "BusinessApplication",
+          "applicationSubCategory": "Project Management Software",
+          "operatingSystem": "Web Browser, iOS, Android",
+          "description": "Intelligent task management platform that keeps your team aligned, focused, and delivering results — all in one beautifully simple workspace.",
+          "url": "https://karyasync.com",
+          "screenshot": "https://karyasync.com/og-image.png",
+          "featureList": [
+            "Smart Kanban Boards",
+            "Real-time Team Collaboration",
+            "Analytics Dashboard",
+            "Workflow Automation",
+            "Timeline and Gantt View",
+            "Enterprise Security (SOC 2)"
+          ],
+          "offers": [
+            {
+              "@type": "Offer",
+              "name": "Starter",
+              "description": "Free forever — up to 5 team members, 3 project boards",
+              "price": "0",
+              "priceCurrency": "USD"
+            },
+            {
+              "@type": "Offer",
+              "name": "Pro",
+              "description": "Up to 50 team members, unlimited boards, workflow automation",
+              "price": "9",
+              "priceCurrency": "USD",
+              "priceSpecification": {
+                "@type": "UnitPriceSpecification",
+                "price": "9",
+                "priceCurrency": "USD",
+                "unitText": "per user per month, billed annually"
+              }
+            },
+            {
+              "@type": "Offer",
+              "name": "Enterprise",
+              "description": "Unlimited team members, SSO, advanced security, dedicated support",
+              "price": "24",
+              "priceCurrency": "USD",
+              "priceSpecification": {
+                "@type": "UnitPriceSpecification",
+                "price": "24",
+                "priceCurrency": "USD",
+                "unitText": "per user per month, billed annually"
+              }
+            }
+          ],
+          "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.9",
+            "bestRating": "5",
+            "worstRating": "1",
+            "ratingCount": "10000"
+          },
+          "review": [
+            {
+              "@type": "Review",
+              "author": {
+                "@type": "Person",
+                "name": "Priya Sharma",
+                "jobTitle": "CTO",
+                "worksFor": { "@type": "Organization", "name": "TechVista" }
+              },
+              "reviewRating": {
+                "@type": "Rating",
+                "ratingValue": "5",
+                "bestRating": "5"
+              },
+              "reviewBody": "KaryaSync completely transformed how our engineering team works. We shipped 40% more features in the first quarter after switching."
+            },
+            {
+              "@type": "Review",
+              "author": {
+                "@type": "Person",
+                "name": "James Chen",
+                "jobTitle": "Product Lead",
+                "worksFor": { "@type": "Organization", "name": "Nexora" }
+              },
+              "reviewRating": {
+                "@type": "Rating",
+                "ratingValue": "5",
+                "bestRating": "5"
+              },
+              "reviewBody": "The automation workflows alone save us 10+ hours a week. It's like having an extra team member that never sleeps."
+            },
+            {
+              "@type": "Review",
+              "author": {
+                "@type": "Person",
+                "name": "Anika Patel",
+                "jobTitle": "Design Director",
+                "worksFor": { "@type": "Organization", "name": "Craftly" }
+              },
+              "reviewRating": {
+                "@type": "Rating",
+                "ratingValue": "5",
+                "bestRating": "5"
+              },
+              "reviewBody": "We tried every tool out there. KaryaSync is the only one that's both powerful enough for devs and intuitive enough for designers."
+            }
+          ],
+          "publisher": { "@id": "https://karyasync.com/#organization" }
+        }
+
+      ]
+    }
+    </script>
   </head>
+
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>

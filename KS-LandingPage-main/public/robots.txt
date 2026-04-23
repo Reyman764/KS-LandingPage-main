@@ -1,0 +1,13 @@
+# KaryaSync — robots.txt
+# https://karyasync.com
+
+User-agent: *
+Allow: /
+
+# Block dev/build artefacts if they ever get deployed
+Disallow: /src/
+Disallow: /.git/
+Disallow: /node_modules/
+
+# Sitemap location
+Sitemap: https://karyasync.com/sitemap.xml

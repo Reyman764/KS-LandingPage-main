@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+
+  <!-- Home / Landing Page -->
+  <url>
+    <loc>https://karyasync.com/</loc>
+    <lastmod>2026-04-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://karyasync.com/og-image.png</image:loc>
+      <image:title>KaryaSync — Smart Task Management for Modern Teams</image:title>
+      <image:caption>KaryaSync dashboard interface showing Kanban board view</image:caption>
+    </image:image>
+  </url>
+
+  <!-- Section anchors — listed for completeness -->
+  <!-- Search engines treat these as part of the parent URL -->
+  <!-- <url><loc>https://karyasync.com/#features</loc></url>   -->
+  <!-- <url><loc>https://karyasync.com/#how-it-works</loc></url> -->
+  <!-- <url><loc>https://karyasync.com/#testimonials</loc></url> -->
+
+</urlset>
