@@ -1,0 +1,51 @@
+.logo-bar {
+  padding: 60px 0 80px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.logo-bar__label {
+  text-align: center;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-bottom: 32px;
+}
+
+.logo-bar__track {
+  overflow: hidden;
+  mask-image: linear-gradient(
+    90deg,
+    transparent,
+    black 15%,
+    black 85%,
+    transparent
+  );
+}
+
+.logo-bar__scroll {
+  display: flex;
+  gap: 56px;
+  animation: logo-scroll 30s linear infinite;
+  width: max-content;
+}
+
+.logo-bar__brand {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  white-space: nowrap;
+  letter-spacing: -0.01em;
+  transition: color var(--transition-fast);
+}
+
+.logo-bar__brand:hover {
+  color: var(--text-secondary);
+}
+
+@keyframes logo-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
