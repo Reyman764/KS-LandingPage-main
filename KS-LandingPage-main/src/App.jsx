@@ -1,6 +1,7 @@
 import { lazy, Suspense } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
+import ConsentBanner from './components/ConsentBanner';
 
 // ─── Below-fold components lazy-loaded ───────────────────────────────────────
 // These are only parsed + executed when the browser is idle / user scrolls,
@@ -44,6 +45,8 @@ export default function App() {
       <Suspense fallback={<Noop />}>
         <Footer />
       </Suspense>
+
+      <ConsentBanner />
     </>
   );
 }

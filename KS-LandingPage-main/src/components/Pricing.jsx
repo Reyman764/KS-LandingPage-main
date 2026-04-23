@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import './Pricing.css';
+import { trackEvent } from '../lib/analytics';
 
 const plans = [
   {
@@ -92,7 +93,11 @@ export default function Pricing() {
             <span className={!yearly ? 'pricing__toggle-active' : ''}>Monthly</span>
             <button
               className={`pricing__switch ${yearly ? 'pricing__switch--on' : ''}`}
-              onClick={() => setYearly(!yearly)}
+              onClick={() => {
+                const next = !yearly;
+                setYearly(next);
+                trackEvent('pricing_billing_toggle', { period: next ? 'yearly' : 'monthly' });
+              }}
               aria-label="Toggle billing period"
             >
               <span className="pricing__switch-thumb"></span>
@@ -143,6 +148,12 @@ export default function Pricing() {
                 className={`btn ${
                   plan.highlighted ? 'btn-primary' : 'btn-secondary'
                 } pricing__cta`}
+                onClick={() => trackEvent('pricing_cta_click', {
+                  plan: plan.name,
+                  label: plan.cta,
+                  period: yearly ? 'yearly' : 'monthly',
+                  price: yearly ? plan.yearly : plan.monthly,
+                })}
               >
                 {plan.cta}
               </button>

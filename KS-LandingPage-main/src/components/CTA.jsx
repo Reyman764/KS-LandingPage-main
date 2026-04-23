@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import './CTA.css';
+import { trackEvent } from '../lib/analytics';
 
 export default function CTA() {
   const sectionRef = useRef(null);
@@ -39,13 +40,23 @@ export default function CTA() {
               collaborate better, and stay in sync. Free forever for small teams.
             </p>
             <div className="cta__actions">
-              <a href="#pricing" className="btn btn-primary btn--lg" id="cta-primary">
+              <a
+                href="#pricing"
+                className="btn btn-primary btn--lg"
+                id="cta-primary"
+                onClick={() => trackEvent('cta_click', { id: 'cta-primary', label: 'Get Started Free', location: 'cta_section' })}
+              >
                 <svg aria-hidden="true" focusable="false" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M5 12h14M12 5l7 7-7 7"/>
                 </svg>
                 Get Started Free
               </a>
-              <a href="#" className="btn btn-outline btn--lg" id="cta-demo">
+              <a
+                href="#"
+                className="btn btn-outline btn--lg"
+                id="cta-demo"
+                onClick={() => trackEvent('cta_click', { id: 'cta-demo', label: 'Book a Demo', location: 'cta_section' })}
+              >
                 Book a Demo
               </a>
             </div>

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import './Navbar.css';
+import { trackEvent } from '../lib/analytics';
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -21,7 +22,13 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  const toggleTheme = () => setTheme(t => t === 'dark' ? 'light' : 'dark');
+  const toggleTheme = () => {
+    setTheme(t => {
+      const next = t === 'dark' ? 'light' : 'dark';
+      trackEvent('theme_toggle', { from: t, to: next });
+      return next;
+    });
+  };
 
   const links = [
     { label: 'Features', href: '#features' },
@@ -71,7 +78,10 @@ export default function Navbar() {
               <a
                 href={l.href}
                 className="navbar__link"
-                onClick={() => setMobileOpen(false)}
+                onClick={() => {
+                  setMobileOpen(false);
+                  trackEvent('nav_link_click', { label: l.label, href: l.href });
+                }}
               >
                 {l.label}
               </a>
@@ -90,7 +100,11 @@ export default function Navbar() {
           </button>
           <button
             className={`navbar__hamburger ${mobileOpen ? 'navbar__hamburger--active' : ''}`}
-            onClick={() => setMobileOpen(!mobileOpen)}
+            onClick={() => {
+              const next = !mobileOpen;
+              setMobileOpen(next);
+              trackEvent('mobile_menu_toggle', { open: next });
+            }}
             aria-label="Toggle menu"
             id="navbar-hamburger"
           >
