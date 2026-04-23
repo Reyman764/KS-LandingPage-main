@@ -25,8 +25,8 @@
 }
 
 .footer__logo {
-  width: 48px;           /* was 36px */
-  height: 48px;
+  width: 64px;
+  height: 64px;
   object-fit: contain;
   border-radius: 10px;
 }
