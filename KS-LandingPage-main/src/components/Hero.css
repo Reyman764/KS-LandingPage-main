@@ -15,36 +15,45 @@
   inset: 0;
   pointer-events: none;
   overflow: hidden;
+  /* Contain paint to this element — browser won't repaint outside it */
+  contain: strict;
 }
 
 .hero__orb {
   position: absolute;
   border-radius: 50%;
-  filter: blur(100px);
+  /* Reduced from 100px → 60px. Visually identical at these sizes
+     but significantly cheaper: blur cost scales with radius² */
+  filter: blur(60px);
   opacity: var(--orb-opacity);
+  /* Promote to its own GPU compositing layer so blur runs on GPU,
+     not CPU, and doesn't trigger layout/paint on animation tick */
+  will-change: transform;
+  transform: translateZ(0);
 }
 
 .hero__orb--1 {
-  width: 600px;
-  height: 600px;
+  /* Larger radius compensates for reduced blur so glow area is the same */
+  width: 700px;
+  height: 700px;
   background: var(--primary-500);
-  top: -200px;
-  right: -100px;
+  top: -250px;
+  right: -150px;
   animation: float 8s ease-in-out infinite;
 }
 
 .hero__orb--2 {
-  width: 400px;
-  height: 400px;
+  width: 500px;
+  height: 500px;
   background: var(--accent-500);
-  bottom: -100px;
-  left: -150px;
+  bottom: -150px;
+  left: -200px;
   animation: float 10s ease-in-out infinite 2s;
 }
 
 .hero__orb--3 {
-  width: 300px;
-  height: 300px;
+  width: 400px;
+  height: 400px;
   background: var(--primary-700);
   top: 40%;
   left: 50%;

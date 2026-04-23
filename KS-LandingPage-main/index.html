@@ -68,12 +68,59 @@
     <meta name="twitter:image:alt"   content="KaryaSync dashboard — Smart Task Management for Modern Teams" />
 
     <!-- ════════════════════════════════════════
-         FONTS  (preconnect → preload → load)
+         PERFORMANCE HINTS
     ════════════════════════════════════════ -->
+    <!-- DNS prefetch for third-party origins -->
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+
+    <!-- Preconnect to font origins (opens TCP+TLS early) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preload"    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap" as="style" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" />
+
+    <!-- ════════════════════════════════════════
+         FONTS — non-blocking load pattern
+         1. Load stylesheet via print media trick (non-render-blocking)
+         2. onload switches media to "all" to apply styles
+         3. <noscript> fallback for JS-disabled browsers
+         font-display=swap: text renders immediately in fallback font,
+         swaps to web font when ready — eliminates invisible text (FOIT)
+    ════════════════════════════════════════ -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap"
+      media="print"
+      onload="this.media='all'"
+    />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap"
+      />
+    </noscript>
+
+    <!-- Inline critical CSS vars so layout doesn't wait for web fonts -->
+    <style>
+      :root {
+        --font-body:    'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        --font-heading: 'Space Grotesk', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      }
+    </style>
+    <!-- Theme-flash prevention — runs synchronously before first paint -->
+    <script>
+      (function () {
+        try {
+          var saved = localStorage.getItem('ks-theme');
+          if (saved) {
+            document.documentElement.setAttribute('data-theme', saved);
+          } else if (window.matchMedia('(prefers-color-scheme: light)').matches) {
+            document.documentElement.setAttribute('data-theme', 'light');
+          } else {
+            document.documentElement.setAttribute('data-theme', 'dark');
+          }
+        } catch (e) {}
+      })();
+    </script>
 
     <!-- ════════════════════════════════════════
          STRUCTURED DATA — JSON-LD Schema Graph

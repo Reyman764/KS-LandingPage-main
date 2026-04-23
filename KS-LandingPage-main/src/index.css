@@ -292,22 +292,44 @@ button {
   transform: translateY(-2px);
 }
 
-/* ===== SMOOTH THEME TRANSITIONS ===== */
-*,
-*::before,
-*::after {
-  transition-property: background-color, border-color, color, box-shadow;
-  transition-duration: 250ms;
-  transition-timing-function: ease;
+/* ===== SMOOTH THEME TRANSITIONS =====
+   Only transition visual properties — never layout properties (width, height,
+   padding, margin) which would cause Cumulative Layout Shift (CLS).
+   Applied only to elements that actually change between themes. */
+body,
+.glass-card,
+.btn,
+.navbar,
+.navbar--scrolled,
+.footer,
+.logo-bar,
+.features,
+.how-it-works,
+.testimonials,
+.features__icon,
+.features__card,
+.testimonials__card,
+.testimonials__author,
+.footer__social,
+.navbar__link,
+.navbar__theme-toggle,
+.footer__link {
+  transition:
+    background-color 250ms ease,
+    border-color     250ms ease,
+    color            250ms ease,
+    box-shadow       250ms ease;
 }
 
-/* Don't apply to animated elements */
-.animate-in,
+/* Don't transition animated or motion elements */
 .hero__orb,
+.cta__orb,
 .logo-bar__scroll,
 .hero__title-accent,
-.navbar__hamburger span {
-  transition: unset;
+.cta__title-accent,
+.navbar__hamburger span,
+.animate-in {
+  transition: none !important;
 }
 
 /* ===== ANIMATIONS ===== */
@@ -391,4 +413,61 @@ button {
 @media (max-width: 480px) {
   :root { --section-padding: 56px 0; }
   .container { padding: 0 16px; }
+}
+
+/* ===== ACCESSIBILITY: REDUCED MOTION =====
+   Users who enable "Reduce Motion" in OS settings get no animations.
+   This is required for WCAG 2.1 AA (Success Criterion 2.3.3). */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration:       0.01ms !important;
+    animation-iteration-count: 1     !important;
+    transition-duration:      0.01ms !important;
+    scroll-behavior:          auto   !important;
+  }
+
+  /* Keep orbs visible but static */
+  .hero__orb,
+  .cta__orb {
+    animation: none !important;
+  }
+
+  /* Keep gradient text visible but stop the shift animation */
+  .hero__title-accent,
+  .cta__title-accent {
+    animation: none !important;
+    background-position: 0% 50%;
+  }
+
+  /* Stop the logo scroll ticker */
+  .logo-bar__scroll {
+    animation: none !important;
+  }
+}
+
+/* ===== ACCESSIBILITY: REDUCED TRANSPARENCY =====
+   Some users are sensitive to translucency effects. */
+@media (prefers-reduced-transparency: reduce) {
+  .glass-card {
+    backdrop-filter: none;
+    background: var(--bg-surface);
+  }
+  .navbar--scrolled {
+    backdrop-filter: none;
+  }
+}
+
+/* ===== FOCUS STYLES =====
+   Visible keyboard-navigation outlines (WCAG 2.1 AA). */
+:focus-visible {
+  outline: 2px solid var(--primary-500);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Remove focus ring for mouse users */
+:focus:not(:focus-visible) {
+  outline: none;
 }

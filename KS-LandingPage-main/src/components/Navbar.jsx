@@ -53,7 +53,15 @@ export default function Navbar() {
     <nav className={`navbar ${scrolled ? 'navbar--scrolled' : ''}`} id="navbar">
       <div className="navbar__inner container">
         <a href="#" className="navbar__brand" id="navbar-brand">
-          <img src="/logo.png" alt="KaryaSync logo" className="navbar__logo" width="52" height="52" />
+          <img
+            src="/logo.png"
+            alt="KaryaSync logo"
+            className="navbar__logo"
+            width="52"
+            height="52"
+            fetchpriority="high"
+            decoding="async"
+          />
           <span className="navbar__name">KaryaSync</span>
         </a>
 

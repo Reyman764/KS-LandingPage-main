@@ -37,7 +37,15 @@ export default function Footer() {
         <div className="footer__top">
           <div className="footer__brand">
             <a href="#" className="footer__logo-link">
-              <img src="/logo.png" alt="KaryaSync logo" className="footer__logo" width="48" height="48" />
+              <img
+                src="/logo.png"
+                alt="KaryaSync logo"
+                className="footer__logo"
+                width="48"
+                height="48"
+                loading="lazy"
+                decoding="async"
+              />
               <span className="footer__name">KaryaSync</span>
             </a>
             <p className="footer__tagline">
