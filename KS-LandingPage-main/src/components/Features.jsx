@@ -91,7 +91,7 @@ export default function Features() {
           </h2>
           <p className="section-subtitle">
             Powerful features designed to help your team collaborate, plan,
-            and ship with confidence.
+            and achieve key milestones.
           </p>
         </div>
 

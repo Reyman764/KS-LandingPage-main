@@ -37,7 +37,7 @@ const steps = [
   },
   {
     num: '04',
-    title: 'Track & Ship',
+    title: 'Track & Execute',
     description:
       'Monitor progress with real-time dashboards, burndown charts, and automated reports. Ship on time, every time.',
     icon: (

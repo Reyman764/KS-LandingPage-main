@@ -57,14 +57,14 @@ export default function Hero() {
       <div className="container hero__container">
         <div className="hero__content">
           <h1 className="hero__title">
-            Sync Your Team.
+            KaryaSync:
             <br />
-            <span className="hero__title-accent">Ship Faster.</span>
+            <span className="hero__title-accent">YOUR DAILY WORK, SIMPLIFIED.</span>
           </h1>
 
           <p className="hero__subtitle">
             KaryaSync is the intelligent task management platform that keeps
-            your team aligned, focused, and delivering results — all in one
+            your team aligned, focused, and hitting every milestone — all in one
             beautifully simple workspace.
           </p>
 
