@@ -1,30 +1,33 @@
 import { lazy, Suspense } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
-import ConsentBanner from './components/ConsentBanner';
-import ScrollProgress from './components/ScrollProgress';
-import BackToTop from './components/BackToTop';
 import Skeleton from './components/Skeleton';
 
 // ─── Below-fold components lazy-loaded ───────────────────────────────────────
-const LogoBar      = lazy(() => import('./components/LogoBar'));
-const Features     = lazy(() => import('./components/Features'));
-const HowItWorks   = lazy(() => import('./components/HowItWorks'));
-const Testimonials = lazy(() => import('./components/Testimonials'));
-const Footer       = lazy(() => import('./components/Footer'));
+const LogoBar       = lazy(() => import('./components/LogoBar'));
+const Features      = lazy(() => import('./components/Features'));
+const HowItWorks    = lazy(() => import('./components/HowItWorks'));
+const Testimonials  = lazy(() => import('./components/Testimonials'));
+const Footer        = lazy(() => import('./components/Footer'));
+
+// ─── UI chrome that doesn't need to render on first paint ────────────────────
+// These add scroll listeners and DOM nodes; deferring them shaves TBT.
+const ScrollProgress = lazy(() => import('./components/ScrollProgress'));
+const BackToTop      = lazy(() => import('./components/BackToTop'));
+const ConsentBanner  = lazy(() => import('./components/ConsentBanner'));
 
 export default function App() {
   return (
     <>
-      {/* Thin scroll progress bar at the very top of the viewport */}
-      <ScrollProgress />
+      <Suspense fallback={null}>
+        <ScrollProgress />
+      </Suspense>
 
       {/* Navbar and Hero are eager — they are the LCP region */}
       <Navbar />
       <main>
         <Hero />
 
-        {/* Skeleton fallbacks reserve vertical space → prevents CLS */}
         <Suspense fallback={<Skeleton />}>
           <LogoBar />
         </Suspense>
@@ -46,10 +49,13 @@ export default function App() {
         <Footer />
       </Suspense>
 
-      <ConsentBanner />
+      <Suspense fallback={null}>
+        <ConsentBanner />
+      </Suspense>
 
-      {/* Floating back-to-top button — appears after 300px scroll */}
-      <BackToTop />
+      <Suspense fallback={null}>
+        <BackToTop />
+      </Suspense>
     </>
   );
 }
