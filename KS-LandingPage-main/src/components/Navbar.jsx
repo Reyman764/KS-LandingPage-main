@@ -94,8 +94,8 @@ export default function Navbar() {
             src="/logo.png"
             alt="KaryaSync logo"
             className="navbar__logo"
-            width="52"
-            height="52"
+            width="20"
+            height="20"
             fetchpriority="high"
             decoding="async"
           />

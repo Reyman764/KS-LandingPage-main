@@ -42,26 +42,6 @@ const features = [
     description: 'Set up powerful rules and triggers to automate repetitive tasks — from status updates to Slack notifications and assignments.',
     color: '#22c55e',
   },
-  {
-    icon: (
-      <svg aria-hidden="true" focusable="false" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>
-      </svg>
-    ),
-    title: 'Timeline & Gantt View',
-    description: 'Plan and track project milestones with interactive timelines. Drag to reschedule, set dependencies, and keep projects on track.',
-    color: '#f59e0b',
-  },
-  {
-    icon: (
-      <svg aria-hidden="true" focusable="false" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-      </svg>
-    ),
-    title: 'Enterprise Security',
-    description: 'SOC 2 compliant with SSO, 2FA, role-based access controls, and audit logs. Your data stays safe — always.',
-    color: '#06b6d4',
-  },
 ];
 
 export default function Features() {
