@@ -17,6 +17,47 @@ export default function Navbar() {
     localStorage.setItem('ks-theme', theme);
   }, [theme]);
 
+  // ── Cross-tab theme sync ──
+  // Uses BroadcastChannel where supported (instant, in-process), and falls
+  // back to the `storage` event for older browsers / private modes.
+  useEffect(() => {
+    let bc;
+    try {
+      if ('BroadcastChannel' in window) {
+        bc = new BroadcastChannel('ks-theme');
+        bc.onmessage = (e) => {
+          const next = e?.data?.theme;
+          if (next === 'dark' || next === 'light') {
+            setTheme((cur) => (cur === next ? cur : next));
+          }
+        };
+      }
+    } catch { /* ignore */ }
+
+    const onStorage = (e) => {
+      if (e.key === 'ks-theme' && (e.newValue === 'dark' || e.newValue === 'light')) {
+        setTheme((cur) => (cur === e.newValue ? cur : e.newValue));
+      }
+    };
+    window.addEventListener('storage', onStorage);
+
+    return () => {
+      window.removeEventListener('storage', onStorage);
+      if (bc) bc.close();
+    };
+  }, []);
+
+  // Broadcast theme changes to other tabs
+  useEffect(() => {
+    if (!('BroadcastChannel' in window)) return;
+    let bc;
+    try {
+      bc = new BroadcastChannel('ks-theme');
+      bc.postMessage({ theme });
+    } catch { /* ignore */ }
+    return () => { if (bc) bc.close(); };
+  }, [theme]);
+
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
     window.addEventListener('scroll', onScroll);
@@ -90,15 +131,18 @@ export default function Navbar() {
     <nav className={`navbar ${scrolled ? 'navbar--scrolled' : ''}`} id="navbar">
       <div className="navbar__inner container">
         <a href="#" className="navbar__brand" id="navbar-brand">
-          <img
-            src="/logo.png"
-            alt="KaryaSync logo"
-            className="navbar__logo"
-            width="20"
-            height="20"
-            fetchpriority="high"
-            decoding="async"
-          />
+          <picture>
+            <source srcSet="/logo.webp" type="image/webp" />
+            <img
+              src="/logo.png"
+              alt="KaryaSync logo"
+              className="navbar__logo"
+              width="20"
+              height="20"
+              fetchpriority="high"
+              decoding="async"
+            />
+          </picture>
           <span className="navbar__name">KaryaSync</span>
         </a>
 

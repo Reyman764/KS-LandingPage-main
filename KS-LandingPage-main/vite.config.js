@@ -1,10 +1,22 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import compression from 'vite-plugin-compression'
+import { imagetools } from 'vite-imagetools'
 
 export default defineConfig({
   plugins: [
     react(),
+    // Auto-converts imported images on demand (e.g. `import url from './x.png?format=webp&w=800'`).
+    // Existing references continue to work; opt-in per import for new ones.
+    imagetools({
+      defaultDirectives: (url) => {
+        // When the import explicitly asks for ?optimize, default to webp + reasonable quality.
+        if (url.searchParams.has('optimize')) {
+          return new URLSearchParams({ format: 'webp', quality: '82' });
+        }
+        return new URLSearchParams();
+      },
+    }),
     compression({
       algorithm: 'gzip',
       ext: '.gz',
